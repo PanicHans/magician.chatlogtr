@@ -75,7 +75,7 @@ variable from `.env.example`.
 ## Credits
 
 - [@murcielagothenotorious](https://github.com/murcielagothenotorious) — Veteran Developer | Previous GTA World Türkiye adaptation and localization.
-- [@PanicHans](https://github.com/PanicHans) (PANIC) — Current Developer | GTA World Türkiye development and maintenance.
+- [@PanicHans](https://github.com/PanicHans) — Current Developer | GTA World Türkiye development and maintenance.
 
 ## License
 
