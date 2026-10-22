@@ -1,10 +1,9 @@
 # Chatlog Magician for GTA World Türkiye
 
-> **Archived snapshot — read-only.** This repository is a static public snapshot of the project as of 2026-10-10. It is not maintained here: no further commits, issues, or pull requests are expected.
 
 Convert GTA World chat logs into beautifully formatted images — no screenshot editing needed. Paste a log, adjust characters, colors, censoring, fonts and contrast, then copy or download the result.
 
-Live site: <https://chatlog-magician-tr.vercel.app/>
+Live site: <https://magician.chatlogtr.netlify.app/>
 
 This is a localized fork of [GTAW Chatlog Magician](https://github.com/aayorishy/gtaw-chatlog-magician) (itself in the lineage of [Chatlog Magician](https://github.com/ulasbayraktar/chatlog-magician)), adapted for GTA World Türkiye with Turkish-first UI plus English, Spanish and Russian locales.
 
@@ -70,18 +69,18 @@ rendering path is frozen by policy: UI work must not change export pixels.
 
 ## Deployment
 
-Deploys on Vercel. Optional Discord feedback delivery uses one server-only
+Deploys on Netlify via GitHub. Optional Discord feedback delivery uses one server-only
 variable from `.env.example`.
 
 ## Credits
 
 - [@Ulaş Eren Bayraktar](https://github.com/ulasbayraktar) — creator of the original magician for LS-RP.
 - [@Jax](https://forum.gta.world/en/topic/130134-guide-dude-man-template-photoshop-template-with-various-rp-lines-and-colors/) — template that inspired the coloring and formatting logic.
-- [@blanco](https://github.com/blancodagoat) — enhancements and performance optimizations.
-- [@murcielagothenotorious](https://github.com/murcielagothenotorious) — GTA World Türkiye adaptation and localization.
+- [@murcielagothenotorious](https://github.com/murcielagothenotorious) — Veteran Developer | Previous GTA World Türkiye adaptation and localization.
+- [@PanicHans](https://github.com/PanicHans) (PANIC) — Current Developer | GTA World Türkiye development and maintenance.
 
 ## License
 
 MIT — see [LICENSE](LICENSE) and [NOTICE](NOTICE) (also served live at
-[/LICENSE](https://chatlog-magician-tr.vercel.app/LICENSE) and
-[/NOTICE](https://chatlog-magician-tr.vercel.app/NOTICE)).
+[/LICENSE](https://magician.chatlogtr.netlify.app/LICENSE) and
+[/NOTICE](https://magician.chatlogtr.netlify.app/NOTICE)).
