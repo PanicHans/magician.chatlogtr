@@ -74,8 +74,6 @@ variable from `.env.example`.
 
 ## Credits
 
-- [@Ulaş Eren Bayraktar](https://github.com/ulasbayraktar) — creator of the original magician for LS-RP.
-- [@Jax](https://forum.gta.world/en/topic/130134-guide-dude-man-template-photoshop-template-with-various-rp-lines-and-colors/) — template that inspired the coloring and formatting logic.
 - [@murcielagothenotorious](https://github.com/murcielagothenotorious) — Veteran Developer | Previous GTA World Türkiye adaptation and localization.
 - [@PanicHans](https://github.com/PanicHans) (PANIC) — Current Developer | GTA World Türkiye development and maintenance.
 
