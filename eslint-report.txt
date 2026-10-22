@@ -1,0 +1,48 @@
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\color-palette\color-palette.ts
+  4:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\analytics.ts
+  1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\app.ts
+    1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u                    @typescript-eslint/no-unused-vars
+  525:13  warning  'bgPaddingH' is assigned a value but never used. Allowed unused vars must match /^_/u       @typescript-eslint/no-unused-vars
+  526:13  warning  'bgPaddingTop' is assigned a value but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+  527:13  warning  'bgPaddingBottom' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\chat.ts
+  1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\chatlog-parser.ts
+     1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+  2829:13  warning  'count' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\community-controller.ts
+  629:14  warning  'error' is defined but never used. Allowed unused caught errors must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\cors-handler.ts
+  1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\error-handler.ts
+  1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\error-logger.ts
+  6:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\init.ts
+  1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\public\js\ui-utils.ts
+  1:11  warning  'Window' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\tests\browser\a11y.spec.js
+  4:11  warning  'document' is defined but never used  no-unused-vars
+
+C:\Users\tahae\Desktop\chatlog-magician-main\tests\canvas-controller.test.js
+  1409:35  warning  'project' is assigned a value but never used. Allowed unused vars must match /^_/u   no-unused-vars
+  1422:25  warning  'document' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  1526:32  warning  'id' is defined but never used. Allowed unused args must match /^_/u                 no-unused-vars
+
+✖ 19 problems (0 errors, 19 warnings)
+
