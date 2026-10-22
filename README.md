@@ -3,7 +3,7 @@
 
 Convert GTA World chat logs into beautifully formatted images — no screenshot editing needed. Paste a log, adjust characters, colors, censoring, fonts and contrast, then copy or download the result.
 
-Live site: <https://magician.chatlogtr.netlify.app/>
+Live site: <https://magician-chatlogtr.netlify.app/>
 
 This is a localized fork of [GTAW Chatlog Magician](https://github.com/aayorishy/gtaw-chatlog-magician) (itself in the lineage of [Chatlog Magician](https://github.com/ulasbayraktar/chatlog-magician)), adapted for GTA World Türkiye with Turkish-first UI plus English, Spanish and Russian locales.
 
@@ -80,5 +80,5 @@ variable from `.env.example`.
 ## License
 
 MIT — see [LICENSE](LICENSE) and [NOTICE](NOTICE) (also served live at
-[/LICENSE](https://magician.chatlogtr.netlify.app/LICENSE) and
-[/NOTICE](https://magician.chatlogtr.netlify.app/NOTICE)).
+[/LICENSE](https://magician-chatlogtr.netlify.app/LICENSE) and
+[/NOTICE](https://magician-chatlogtr.netlify.app/NOTICE)).
