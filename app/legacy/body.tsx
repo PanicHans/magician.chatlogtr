@@ -4565,7 +4565,7 @@ export default function LegacyBody() {
           <strong>
             <a
               className="legacy-hover-link"
-              href="https://forum-tr.gta.world/index.php?/profile/8001-murcielago/"
+              href="https://forum-tr.gta.world/index.php?/profile/8055-panic/"
               target="_blank"
               style={{
                 color: 'inherit',
@@ -4574,7 +4574,7 @@ export default function LegacyBody() {
                 transition: 'color 0.2s, text-decoration-color 0.2s',
               }}
             >
-              {'murcielago'}
+              {'PANIC'}
             </a>
           </strong>
           {'\n      tarafından geliştirilmektedir.\n      '}
@@ -4583,7 +4583,7 @@ export default function LegacyBody() {
           <strong>
             <a
               className="legacy-hover-link"
-              href="https://forum-tr.gta.world/index.php?/topic/27368-chatlog-magician/"
+              href="https://forum-tr.gta.world/index.php?/topic/31859-chatlog-magician/"
               target="_blank"
               style={{
                 color: 'inherit',

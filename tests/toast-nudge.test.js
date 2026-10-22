@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 /* global document, window */
 
-const FORUM_URL = 'https://forum-tr.gta.world/index.php?/topic/27368-chatlog-magician/';
+const FORUM_URL = 'https://forum-tr.gta.world/index.php?/topic/31859-chatlog-magician/';
 const realOpen = window.open;
 
 beforeEach(async () => {

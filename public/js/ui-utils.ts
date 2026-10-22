@@ -84,7 +84,7 @@ interface Window {
   };
 
   /* ── 2. Support Nudge ── */
-  const SUPPORT_FORUM_URL = 'https://forum-tr.gta.world/index.php?/topic/27368-chatlog-magician/';
+  const SUPPORT_FORUM_URL = 'https://forum-tr.gta.world/index.php?/topic/31859-chatlog-magician/';
   const NudgeSystem = (function () {
     var sessionFirstExport = false;
 
