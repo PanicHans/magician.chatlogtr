@@ -106,3 +106,40 @@ test('TXT okuma hatasında mevcut sohbet metni korunur', async ({ page }) => {
     'TXT dosyası okunurken bir hata oluştu. Lütfen dosyayı tekrar deneyin.'
   );
 });
+test('Boş TXT dosyası uyarı verir ve mevcut metni korur', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem('cm:tour:v1:completed', 'true');
+  });
+
+  await page.goto('/');
+
+  // Bildirim mesajlarını yakala.
+  await page.evaluate(() => {
+    window.__emptyTxtMessages = [];
+
+    window.showToast = (message) => {
+      window.__emptyTxtMessages.push(message);
+    };
+  });
+
+  const originalText = 'Ahmet Yılmaz diyor ki: Bu metin silinmemeli.';
+
+  await page.locator('#chatlogInput').fill(originalText);
+
+  // Gerçekten boş bir TXT dosyası yükle.
+  await page.locator('#chatlogFileInput').setInputFiles({
+    name: 'bos-dosya.txt',
+    mimeType: 'text/plain',
+    buffer: Buffer.alloc(0),
+  });
+
+  // Önceki sohbet metni korunmalı.
+  await expect(page.locator('#chatlogInput')).toHaveValue(originalText);
+
+  // Kullanıcıya doğru Türkçe uyarı iletilmeli.
+  const messages = await page.evaluate(() => window.__emptyTxtMessages);
+
+  expect(messages).toContain(
+    'Seçtiğiniz TXT dosyası boş. Lütfen içerik bulunan bir dosya seçin.'
+  );
+});

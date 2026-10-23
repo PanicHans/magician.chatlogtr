@@ -188,6 +188,15 @@ $(document).ready(function () {
   });
 
 function loadTxtFile(file) {
+  if (file.size === 0) {
+    if (typeof window.showToast === 'function') {
+      window.showToast(
+        'Seçtiğiniz TXT dosyası boş. Lütfen içerik bulunan bir dosya seçin.',
+        'fa-exclamation-triangle'
+      );
+    }
+    return;
+  }
   const reader = new FileReader();
 
   reader.onload = function (e) {
