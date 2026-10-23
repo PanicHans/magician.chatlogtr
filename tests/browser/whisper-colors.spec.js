@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+/* global window, getComputedStyle */
+
 test('Türkçe fısıltı türleri doğru renklendirilir', async ({ page }) => {
   await page.addInitScript(() => {
     window.localStorage.setItem('cm:tour:v1:completed', 'true');

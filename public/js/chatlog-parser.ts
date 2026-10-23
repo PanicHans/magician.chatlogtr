@@ -187,15 +187,33 @@ $(document).ready(function () {
     clearTxtFile();
   });
 
-  function loadTxtFile(file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      $textarea.val(e.target.result);
-      processOutput();
-      showFileInfo(file);
-    };
-    reader.readAsText(file, 'UTF-8');
-  }
+function loadTxtFile(file) {
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    if (typeof e.target.result !== 'string') {
+      if (typeof window.showToast === 'function') {
+        window.showToast('TXT dosyası okunamadı.', 'fa-exclamation-triangle');
+      }
+      return;
+    }
+
+    $textarea.val(e.target.result);
+    processOutput();
+    showFileInfo(file);
+  };
+
+  reader.onerror = function () {
+    if (typeof window.showToast === 'function') {
+      window.showToast(
+        'TXT dosyası okunurken bir hata oluştu. Lütfen dosyayı tekrar deneyin.',
+        'fa-exclamation-triangle'
+      );
+    }
+  };
+
+  reader.readAsText(file, 'UTF-8');
+}
 
   function showFileInfo(file) {
     $txtUploadContent.hide();

@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+/* global window, getComputedStyle, Event */
+
 test('HEX renk kodlu TXT dosyası doğru yüklenir', async ({ page }) => {
   await page.addInitScript(() => {
     window.localStorage.setItem('cm:tour:v1:completed', 'true');
@@ -58,4 +60,49 @@ test('HEX renk kodlu TXT dosyası doğru yüklenir', async ({ page }) => {
       ])
     );
   }
+});
+
+test('TXT okuma hatasında mevcut sohbet metni korunur', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem('cm:tour:v1:completed', 'true');
+
+    // Dosya okuma işlemini hata verecek şekilde taklit et.
+    window.FileReader = class {
+      readAsText() {
+        if (typeof this.onerror === 'function') {
+          this.onerror(new Event('error'));
+        }
+      }
+    };
+  });
+
+  await page.goto('/');
+  await page.evaluate(() => {
+    window.__txtErrorToastMessages = [];
+
+    window.showToast = (message) => {
+      window.__txtErrorToastMessages.push(message);
+    };
+  });
+
+  const originalText = 'Ahmet Yılmaz diyor ki: Bu metin korunmalı.';
+
+  await page.locator('#chatlogInput').fill(originalText);
+
+  await page.locator('#chatlogFileInput').setInputFiles({
+    name: 'hatali-dosya.txt',
+    mimeType: 'text/plain',
+    buffer: Buffer.from('Test içeriği', 'utf8'),
+  });
+
+  // Okuma başarısız olduğunda önceki metin silinmemeli.
+  await expect(page.locator('#chatlogInput')).toHaveValue(originalText);
+  // TXT okuma hatasının bildirim sistemine iletildiğini doğrula.
+  const toastMessages = await page.evaluate(() => {
+    return window.__txtErrorToastMessages || [];
+  });
+
+  expect(toastMessages).toContain(
+    'TXT dosyası okunurken bir hata oluştu. Lütfen dosyayı tekrar deneyin.'
+  );
 });
