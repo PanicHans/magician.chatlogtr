@@ -40,3 +40,44 @@ test('Türkçe fısıltı türleri doğru renklendirilir', async ({ page }) => {
 
   expect(results[3].text).toContain('Normal konuşma');
 });
+
+test('Eski ve yeni FiveM fısıltı formatları turuncu renklendirilir', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem('cm:tour:v1:completed', 'true');
+    window.localStorage.setItem('chatlogWhisperColoring', 'true');
+  });
+
+  await page.goto('/');
+
+  const messages = [
+    'John Doe fısıldar: x',
+    'John Doe fısıldıyor: x',
+    'Carmen Garcia fısıldıyor: Hey.',
+  ];
+
+  await page.locator('#chatlogInput').fill(messages.join('\n'));
+
+  await page.evaluate(() => window.ChatlogParser.processOutput());
+
+  const lines = page.locator('#output .generated');
+
+  await expect(lines).toHaveCount(3);
+
+  const results = await lines.evaluateAll((elements) =>
+    elements.map((element) => {
+      const whisper = element.querySelector('.whisper');
+
+      return {
+        text: element.textContent,
+        isWhisper: Boolean(whisper),
+        color: whisper ? getComputedStyle(whisper).color : null,
+      };
+    })
+  );
+
+  for (let i = 0; i < messages.length; i++) {
+    expect(results[i].text).toContain(messages[i]);
+    expect(results[i].isWhisper).toBe(true);
+    expect(results[i].color).toBe('rgb(237, 168, 65)');
+  }
+});

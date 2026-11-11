@@ -1981,7 +1981,7 @@ function loadTxtFile(file) {
         return wrapSpan('grey', line);
       }
       if (
-        (lowerLine.includes('fısıldar') && !line.startsWith('*') && !line.startsWith('>')) ||
+        ((lowerLine.includes('fısıldar') || lowerLine.includes('fısıldıyor')) && !line.startsWith('*') && !line.startsWith('>')) ||
         line.startsWith('(Araç İçi)')
       ) {
         return handleWhispers(line);
