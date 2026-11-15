@@ -807,7 +807,7 @@ function loadTxtFile(file) {
   function splitAmeLine(line, names) {
     const cleanLine = stripColorPrefixes(line);
     if (!cleanLine.startsWith('>')) return line;
-    const prefixMatch = line.match(/^!?\{#?[0-9A-Fa-f]{6}\}\s*/i);
+const prefixMatch = line.match(/^!?\{#?(?:[0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3})\}\s*/i);
     const colorPrefix = prefixMatch ? prefixMatch[0] : '';
     line = cleanLine;
 
@@ -1781,9 +1781,12 @@ function loadTxtFile(file) {
     return line.replace(/\[\d{2}:\d{2}:\d{2}\] /g, '').trim();
   }
 
-  function stripColorPrefixes(line) {
-    return line.replace(/^!?\{#?[0-9A-Fa-f]{6}\}\s*(?=[*>])/i, '');
-  }
+function stripColorPrefixes(line) {
+  return line.replace(
+    /^!?\{#?(?:[0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3})\}\s*(?=[*>])/i,
+    ''
+  );
+}
 
   function formatLineWithFilter(line) {
     const cleanLine = line.replace(/÷(.*?)÷/g, '$1');
@@ -2040,7 +2043,7 @@ function loadTxtFile(file) {
 
     if (lowerLine.includes('hava durumu:')) return wrapSpan('white', line);
 
-    const cleanStatsLine = line.replace(/!?\{#?[0-9A-Fa-f]{6}\}/gi, '').trim();
+const cleanStatsLine = line.replace(/^!?\{#?(?:[0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3})\}/gi, '');
     const lowerCleanStatsLine = normalizeTurkishForSearch(cleanStatsLine);
 
     const isStatsMenuLine =
@@ -2347,14 +2350,17 @@ function loadTxtFile(file) {
       }
       return wrapSpan('blue', line);
     }
-    if (line.startsWith('*') || /^!?\{#?[0-9A-Fa-f]{6}\}\s*\*/i.test(line)) {
-      const cleanLine = line.replace(/^!?\{#?[0-9A-Fa-f]{6}\}\s*/i, '');
-      return wrapSpan('me', cleanLine);
-    }
-    if (line.startsWith('>') || /^!?\{#?[0-9A-Fa-f]{6}\}\s*>/i.test(line)) {
-      const cleanLine = line.replace(/^!?\{#?[0-9A-Fa-f]{6}\}\s*/i, '');
-      return wrapSpan('ame', cleanLine);
-    }
+
+if (line.startsWith('*') || /^!?\{#?(?:[0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3})\}\s*\*/i.test(line)) {
+  const cleanLine = line.replace(/^!?\{#?(?:[0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3})\}\s*/i, '');
+  return wrapSpan('me', cleanLine);
+}
+
+if (line.startsWith('>') || /^!?\{#?(?:[0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3})\}\s*>/i.test(line)) {
+  const cleanLine = line.replace(/^!?\{#?(?:[0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3})\}\s*/i, '');
+  return wrapSpan('ame', cleanLine);
+}
+
 
     // 11. TR GENEL İŞLEM FİİLLERİ (Fallback catch)
     if (lowerLine.startsWith('mülke')) {
@@ -2495,9 +2501,9 @@ function loadTxtFile(file) {
   function resolveColorCode(code) {
     if (!code) return null;
     const clean = code.replace(/^[!#{}]+|[{}]+$/g, '').trim();
-    if (/^[0-9A-Fa-f]{6}$/.test(clean) || /^[0-9A-Fa-f]{3}$/.test(clean)) {
-      return '#' + clean;
-    }
+if (/^(?:[0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/.test(clean)) {
+  return '#' + clean;
+}
     const lower = clean.toLowerCase();
     if (INLINE_COLOR_MAP[lower]) {
       return INLINE_COLOR_MAP[lower];
@@ -2536,7 +2542,7 @@ function loadTxtFile(file) {
     }
 
     // Split by !{#HEXCODE}, !{HEXCODE}, {#HEXCODE}, {HEXCODE}, or !{ColorName}
-    const parts = content.split(/!?\{#?([0-9A-Fa-f]{6}|[a-zA-Z]+)\}/i);
+    const parts = content.split(/!?\{#?([0-9A-Fa-f]{8}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{3}|[a-zA-Z]+)\}/i);
 
     let html = '';
     let censoring = false;
@@ -3148,16 +3154,15 @@ function loadTxtFile(file) {
     return null;
   }
 
-  function replaceColorCodes(str) {
-    // Validate and sanitize hex color codes
-    return str
-      .replace(/!?\{#?([A-Fa-f0-9]{6})\}/gi, (_match, p1) => {
-        // p1 is already validated by regex to be 6 hex chars, but sanitize anyway
-        const safeColor = p1.replace(/[^A-Fa-f0-9]/g, '').substring(0, 6);
-        return '<span style="color: #' + safeColor + ';">';
-      })
-      .replace(/!?\{\/#?([A-Fa-f0-9]{6})\}/gi, '</span>');
-  }
+function replaceColorCodes(str) {
+  // Support all valid CSS HEX formats: 3, 4, 6 and 8 digits
+  return str
+    .replace(/!?\{#?([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{3})\}/gi, (_match, p1) => {
+      const safeColor = p1.replace(/[^A-Fa-f0-9]/g, '').substring(0, 8);
+      return '<span style="color: #' + safeColor + ';">';
+    })
+    .replace(/!?\{\/#?([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{3})\}/gi, '</span>');
+}
 
   function colorMoneyLine(line) {
     const moneyMatch = line.match(/You have received (\$\d+(?:,\d{3})*(?:\.\d{1,3})?)/);

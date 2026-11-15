@@ -93,3 +93,46 @@ test('Aynı satırda birden fazla HEX renk geçişini korur', async ({ page }) =
     );
   }
 });
+
+test('Tum HEX bicimleri ve saydamlik dogru islenir', async ({ page }) => {
+  await page.locator('#chatlogInput').fill(
+    '{#F60}Uc haneli renk\n' +
+    '{#F608}Dort haneli saydam\n' +
+    '{#FF6600}Alti haneli renk\n' +
+    '{#FF660080}Sekiz haneli saydam\n' +
+    '!{#0F0}Unlemli kisa renk\n' +
+    '{#FFFFFF}Beyaz bolum {#F00}Kirmizi bolum'
+  );
+
+  await page.evaluate(() => window.ChatlogParser.processOutput());
+
+  const output = page.locator('#output');
+
+  await expect(output).not.toContainText('{#');
+  await expect(output).not.toContainText('!{#');
+
+  const colors = await output.locator('span[style*="color"]').evaluateAll(
+    (elements) => elements.map((element) => ({
+      text: element.textContent.trim(),
+      color: getComputedStyle(element).color,
+    }))
+  );
+
+const colorOf = (text) =>
+  colors.findLast((item) => item.text.includes(text))?.color;
+
+  expect(colorOf('Uc haneli renk')).toBe('rgb(255, 102, 0)');
+  expect(colorOf('Alti haneli renk')).toBe('rgb(255, 102, 0)');
+  expect(colorOf('Unlemli kisa renk')).toBe('rgb(0, 255, 0)');
+  expect(colorOf('Beyaz bolum')).toBe('rgb(255, 255, 255)');
+  expect(colorOf('Kirmizi bolum')).toBe('rgb(255, 0, 0)');
+
+  const alphaOf = (text) => {
+    const color = colorOf(text);
+    expect(color).toMatch(/^rgba\(255,\s*102,\s*0,\s*[\d.]+\)$/);
+    return Number(color.match(/,\s*([\d.]+)\)$/)[1]);
+  };
+
+  expect(alphaOf('Dort haneli saydam')).toBeCloseTo(136 / 255, 2);
+  expect(alphaOf('Sekiz haneli saydam')).toBeCloseTo(128 / 255, 2);
+});
