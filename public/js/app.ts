@@ -1204,7 +1204,7 @@ function toggleHistoryPanel() {
     if (firstItem) firstItem.focus();
   }
 }
-
+(window as any).toggleHistoryPanel = toggleHistoryPanel;
 document.addEventListener('click', (e: any) => {
   const historyPanel = document.getElementById('historyPanel');
 
