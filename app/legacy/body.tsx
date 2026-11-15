@@ -643,6 +643,17 @@ export default function LegacyBody() {
                   <span className="contrast-text">{'Kontrast: Kapalı'}</span>
                   {'\n            '}
                 </button>
+<button
+  id="toggleTextShadow"
+  className="button secondary"
+  type="button"
+  aria-label="Yazı gölgesini aç veya kapat"
+  title="Yazı gölgesini aç veya kapat"
+  aria-pressed="false"
+>
+  <i className="fas fa-layer-group" aria-hidden="true"></i>
+  <span className="shadow-text">Gölge: Kapalı</span>
+</button>
                 {'\n          '}
               </div>
               {'\n\n          '}

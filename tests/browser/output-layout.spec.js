@@ -53,7 +53,9 @@ test('long chat output grows vertically without overlapping lines', async ({ pag
 test('real mouse drag in output enters coloring mode and selects words', async ({ page }) => {
   await page.addInitScript(() => window.localStorage.setItem('cm:tour:v1:completed', 'true'));
   await page.goto('/');
-
+if (await page.locator('#changelogDrawer.open').isVisible()) {
+  await page.locator('#closeChangelogModal').click();
+}
   const sample = '[12:34:56] John Doe says: Hello world test';
   await page.locator('#chatlogInput').fill(sample);
   await page.evaluate(() => window.ChatlogParser.processOutput());
@@ -87,7 +89,9 @@ test('real mouse drag in output enters coloring mode and selects words', async (
 test('real mouse drag in output WHILE IN coloring mode selects words', async ({ page }) => {
   await page.addInitScript(() => window.localStorage.setItem('cm:tour:v1:completed', 'true'));
   await page.goto('/');
-
+if (await page.locator('#changelogDrawer.open').isVisible()) {
+  await page.locator('#closeChangelogModal').click();
+}
   const sample = '[12:34:56] John Doe says: Hello world test';
   await page.locator('#chatlogInput').fill(sample);
   await page.evaluate(() => window.ChatlogParser.processOutput());

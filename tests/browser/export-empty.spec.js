@@ -30,6 +30,10 @@ test('empty export shows a friendly toast and skips the fallback', async ({ page
   });
   // Fresh load renders a single empty .generated line: visually empty output.
   expect((await page.locator('#output').innerText()).trim()).toBe('');
+if (await page.locator('#changelogDrawer.open').isVisible()) {
+  await page.locator('#closeChangelogModal').click();
+}
+
   await page.locator('#downloadOutputTransparent').click();
   await expect(
     page.locator('#kumoToastRoot').getByText('Dışa aktarılacak sohbet bulunamadı.', { exact: true })

@@ -165,6 +165,9 @@ test('Chat mode still formats, copies, and downloads', async ({ page }) => {
     window.copyBlobToClipboard = async (blob) => window.__legacyActions.push(['copy', blob.type]);
     window.saveAs = (blob) => window.__legacyActions.push(['download', blob.type]);
   });
+if (await page.locator('#changelogDrawer.open').isVisible()) {
+  await page.locator('#closeChangelogModal').click();
+}
   await page.locator('#copyOutputImage').click();
   await expect.poll(() => page.evaluate(() => window.__legacyActions.length)).toBe(1);
   await page.locator('#downloadOutputTransparent').click();
@@ -205,6 +208,9 @@ test('PNG export reads the cross-origin font stylesheet without console errors',
     window.__exportCalls = [];
     window.saveAs = (blob) => window.__exportCalls.push(blob.type);
   });
+if (await page.locator('#changelogDrawer.open').isVisible()) {
+  await page.locator('#closeChangelogModal').click();
+}
   await page.locator('#downloadOutputTransparent').click();
   await expect.poll(() => page.evaluate(() => window.__exportCalls.length)).toBe(1);
   expect(errors.filter((entry) => entry.includes('domtoimage'))).toEqual([]);
@@ -222,7 +228,9 @@ test('Chat mode native Canvas 2D engine exports directly and falls back to downl
     window.__downloadCalls = [];
     window.saveAs = (blob, filename) => window.__downloadCalls.push({ type: blob.type, filename });
   });
-
+if (await page.locator('#changelogDrawer.open').isVisible()) {
+  await page.locator('#closeChangelogModal').click();
+}
   await page.locator('#downloadOutputTransparent').click();
   await expect.poll(() => page.evaluate(() => window.__downloadCalls.length)).toBe(1);
   const downloadResult = await page.evaluate(() => window.__downloadCalls[0]);

@@ -72,6 +72,7 @@ $(document).ready(function () {
   const $toggleCensorStyleBtn = $('#toggleCensorStyle');
   const $toggleFontBtn = $('#toggleFont');
   const $toggleContrastBtn = $('#toggleContrast');
+const $toggleTextShadowBtn = $('#toggleTextShadow');
   const $toggleItalicParsingBtn = $('#toggleItalicParsing');
   const $toggleWhisperColoringBtn = $('#toggleWhisperColoring');
   const $lineLengthInput = $('#lineLengthInput');
@@ -100,6 +101,17 @@ $(document).ready(function () {
   }
   $toggleFontBtn.on('click', toggleFontStyle);
   $toggleContrastBtn.on('click', toggleContrastStyle);
+$toggleTextShadowBtn.on('click', function () {
+  $output.toggleClass('text-shadow-enabled');
+
+  const enabled = $output.hasClass('text-shadow-enabled');
+
+  $toggleTextShadowBtn
+    .find('.shadow-text')
+    .text(enabled ? 'Gölge: Açık' : 'Gölge: Kapalı');
+
+  $toggleTextShadowBtn.attr('aria-pressed', String(enabled));
+});
   $toggleItalicParsingBtn.on('click', toggleItalicParsing);
   if ($toggleWhisperColoringBtn.length) {
     $toggleWhisperColoringBtn.on('click', toggleWhisperColoring);

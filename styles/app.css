@@ -365,7 +365,46 @@
 	backdrop-filter: blur(5px);
 	transition: all var(--dur-panel) var(--ease-spring);
 }
+/* GTA-style soft text shadow */
+.output.text-shadow-enabled .generated,
+.output.text-shadow-enabled .generated span,
+.output.text-shadow-enabled .colorable {
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0 -1px 0 #000,
+         0  1px 0 #000,
+        -1px  0 0 #000,
+         1px  0 0 #000,
+         1px  2px 3px rgba(0, 0, 0, 0.85),
+         0  0 2px rgba(0, 0, 0, 0.45);
+}
+/* Adaptive shadow strength based on contrast */
+.output.text-shadow-enabled {
+    --extra-text-shadow:
+        1px 2px 3px rgba(0, 0, 0, 0.85),
+        0 0 2px rgba(0, 0, 0, 0.45);
+}
 
+.output.text-shadow-enabled.contrast-low {
+    --extra-text-shadow:
+        1px 2px 4px rgba(0, 0, 0, 0.85),
+        0 0 3px rgba(0, 0, 0, 0.50);
+}
+
+.output.text-shadow-enabled.contrast-medium {
+    --extra-text-shadow:
+        2px 3px 5px rgba(0, 0, 0, 0.85),
+        0 0 4px rgba(0, 0, 0, 0.55);
+}
+
+.output.text-shadow-enabled.contrast-high {
+    --extra-text-shadow:
+        2px 4px 6px rgba(0, 0, 0, 0.85),
+        0 0 5px rgba(0, 0, 0, 0.60);
+}
 .output.is-small {
 	line-height: 1.5;
 }
@@ -417,7 +456,55 @@
 		1px 2px 0 #000, -1px 2px 0 #000, 1px -2px 0 #000, -1px -2px 0 #000,
 		2px 1px 0 #000, -2px 1px 0 #000, 2px -1px 0 #000, -2px -1px 0 #000;
 }
+/* Combine contrast outline with adaptive soft shadow */
+.output {
+    --shadow-outline-extra: 0 0 transparent;
+}
 
+.output.contrast-medium {
+    --shadow-outline-extra:
+        0 2px 0 #000,
+        0 -2px 0 #000,
+        2px 0 0 #000,
+        -2px 0 0 #000;
+}
+
+.output.contrast-high {
+    --shadow-outline-extra:
+        0 2px 0 #000,
+        0 -2px 0 #000,
+        2px 0 0 #000,
+        -2px 0 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        1px 2px 0 #000,
+        -1px 2px 0 #000,
+        1px -2px 0 #000,
+        -1px -2px 0 #000,
+        2px 1px 0 #000,
+        -2px 1px 0 #000,
+        2px -1px 0 #000,
+        -2px -1px 0 #000;
+}
+
+/* Preserve the outline and add the selected soft shadow */
+.output.text-shadow-enabled .generated,
+.output.text-shadow-enabled .generated span,
+.output.text-shadow-enabled .colorable {
+    text-shadow:
+        0 1px 0 #000,
+        0 -1px 0 #000,
+        1px 0 0 #000,
+        -1px 0 0 #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000,
+        var(--shadow-outline-extra),
+        var(--extra-text-shadow);
+}
 .auto-save-indicator {
 	position: fixed;
 	top: 20px;

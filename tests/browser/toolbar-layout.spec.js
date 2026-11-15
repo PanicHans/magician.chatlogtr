@@ -127,11 +127,13 @@ test('kontrast button is placed in output-actions and system messages toggle is 
   const outputActionsButtons = await page
     .locator('.output-actions button')
     .evaluateAll((btns) => btns.map((b) => b.id));
-  expect(outputActionsButtons).toEqual([
     'copyOutputImage',
-    'downloadOutputTransparent',
-    'toggleContrast',
-  ]);
+    expect(outputActionsButtons).toEqual([
+  'copyOutputImage',
+  'downloadOutputTransparent',
+  'toggleContrast',
+  'toggleTextShadow',
+]);
 
   // System messages toggle is inside 3-dots overflow menu
   const overflowButtons = await page
