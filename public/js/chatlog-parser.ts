@@ -1993,7 +1993,7 @@ function loadTxtFile(file) {
     if (/\([^\)]+\) [^:]+ kişisine gönderilen mesaj: .+/.test(line))
       return formatOutgoingSmsMessage(line);
     if (/\([^\)]+\) [^:]+ kişisinden mesaj: .+/.test(line)) return formatSmsMessage(line);
-    if (/\([^\)]+\) [^:]+ .+/.test(line)) return formatSmsReminderMessage(line);
+    if (/^\s*\[SMS\]\s+/i.test(line)) return formatSmsReminderMessage(line);
     if (
       /\([^\)]+\) Incoming call from .+/.test(line) ||
       lowerLine.includes('adlı kişiden gelen arama') ||
@@ -2853,7 +2853,7 @@ function loadTxtFile(file) {
     const match = line.match(/\[SMS\] %[A-Za-z0-9]+ okunmamış mesajın var\./i);
 
     if (match) {
-      const info = match[1];
+      const info = match[0];
 
       return wrapSpan('yellow', `${info}`);
     }
